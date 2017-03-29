@@ -64,7 +64,7 @@ public:
 	
 	//Reduce space usage by a factor of 8 using bitvector. 
 	//Each boolean otherwise occupies a size of 8 bits, when you use char instead
-	bool isUniqueChars_bitvector(const string &str) {		
+	bool isUniqueChars_bitvector(const string &str) {
 		bitset<256> bits(0);
 		for(int i = 0; i < str.length(); i++) {
 			int val = str[i];
@@ -169,6 +169,38 @@ public:
 		else
 			cout << str1 <<" and " << str2 << " are not permutation of each other" << endl;
 		return 0;
+	}
+	
+	/*
+	 * Problem 1.3 URLify --> Replace all the spaces in a string with '%20'. Preferebly in place.
+	 * Assumption : We have enough space to accomodate addition chars.
+	 */
+	void urlify(string &str, int len) {
+		// Calculate additional space to insert the additional chars
+		int extraLen = 0;
+		for (int i = 0 ; i < len; i++) {
+			if (str[i] == ' ') {
+				extraLen++;
+			}
+		}
+		// Insert %20 from end to start
+		int j = len + extraLen * 2 - 1;
+		for (int i = len - 1; i >= 0; i--) {
+			if (str[i] != ' ') {
+				str[j--] = str[i];
+			} else {
+				str[j--] = '0';
+				str[j--] = '2';
+				str[j--] = '%';
+			}
+		}
+	}
+	
+	void urlifyTest () {
+		string str = "Mr John Smith    ";                       //String with extended length ( true length + 2* spaces)
+		std::cout << "Actual string   : " << str << std::endl;
+		urlify(str, 13);										//Length of "Mr John Smith" = 13
+		std::cout << "URLified string : " << str << std::endl;
 	}
 };
 

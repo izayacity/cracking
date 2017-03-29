@@ -9,6 +9,6 @@
 #include "Mystring.h"
 int main(int argc, const char * argv[]) {
     Mystring mystring;
-    mystring.arePermutationTest();
+    mystring.urlifyTest();
     return 0;
 }
