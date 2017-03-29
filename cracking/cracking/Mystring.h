@@ -202,6 +202,44 @@ public:
 		urlify(str, 13);										//Length of "Mr John Smith" = 13
 		std::cout << "URLified string : " << str << std::endl;
 	}
+	
+	/*
+	 1.4 Permutation Palindrome: Check if a string is a permutation of a palindrome.
+	 A palindrome is a word or phrase that is the same forwards and backwards.
+	 A permutation is a rearrangement of letters.
+	 E.g.
+	 Input: Tact Coa
+	 Output: True (permutations: "taco cat", "atco cta", etc)
+	 */
+	bool isPermutationOfPalindrome(const string &phrase) {
+		bitset<256> bits{0};
+		int val;
+		for (int i = 0; i < phrase.size(); i++) {
+			if (phrase[i] == ' ')
+				continue;
+			// Important to check lowercase when establishing hash map
+			val = (phrase[i] >= 'A' && phrase[i] <= 'Z') ? phrase[i] - 'A' + 'a' : phrase[i];
+			bits.flip(val);			
+		}
+		
+		if (bits.any()) {
+			if (bits.count() <= 1)
+				return true;
+			else
+				return false;
+		} else
+			return true;
+	}
+	
+	void isPermutationOfPalindromeTest () {
+		string pali = "Rats live on no evil star";
+		string isPermutation = isPermutationOfPalindrome(pali) ? "yes" : "no";
+		cout << pali << " is a permutation of palindrome: " << isPermutation << endl;
+		
+		string taco = "Tact Coa";
+		isPermutation = isPermutationOfPalindrome(taco) ? "yes" : "no";
+		cout << taco << " is a permutation of palindrome: " << isPermutation << endl;
+	}
 };
 
 #endif /* Mystring_h */
