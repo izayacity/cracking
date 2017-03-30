@@ -311,6 +311,42 @@ public:
 		cout << strs[0] << " and " << strs[4] << " are one edit away: ";
 		oneEditAway (strs[0], strs[4]) ? cout << "yes" << endl : cout << "no" << endl;
 	}
+	
+	/*
+	 1.6 String compression using the counts of repeated characters. e.g. aabcccccaaa -> a2b1c5a3
+	 */
+	std::string compress(std::string str) {
+		string strCompressed = "";
+		
+		if (str.size() <= 2)
+			return str;
+		
+		for (int i = 0, j = 1; i < str.size(); i++) {
+			if (str[i] == str[i+1] && i + 1 <= str.size() - 1) {
+				j++;
+			} else {
+				strCompressed += str[i];
+				strCompressed += j + '0';
+				j = 1;
+			}
+		}
+		
+		if (strCompressed.size() >= str.size())
+			return str;
+		return strCompressed;
+	}
+	
+	void compressTest () {
+		std::string str, out;
+		std::cout << "Enter a string:\n";
+		std::cin >> str;
+		out = compress(str);
+		if (str.compare(out)) {
+			std::cout << str << " can be compressed to " << out << std::endl;
+		} else {
+			std::cout << str << " can not be compressed\n";
+		}
+	}
 };
 
 #endif /* Mystring_h */
