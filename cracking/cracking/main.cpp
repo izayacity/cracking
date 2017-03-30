@@ -9,6 +9,6 @@
 #include "Mystring.h"
 int main(int argc, const char * argv[]) {
     Mystring mystring;
-    mystring.isPermutationOfPalindromeTest();
+    mystring.oneEditAwayTest();
     return 0;
 }

@@ -12,6 +12,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <cmath>
+#include <stdlib.h>
 using namespace std;
 
 class Mystring {
@@ -239,6 +241,75 @@ public:
 		string taco = "Tact Coa";
 		isPermutation = isPermutationOfPalindrome(taco) ? "yes" : "no";
 		cout << taco << " is a permutation of palindrome: " << isPermutation << endl;
+	}
+	
+	/*
+	 1.5 Given two strings, check if they are one edit (or zero edits) away (edit: insert, remove, or replace a character).
+	 E.g.
+	 pale, ple -> true
+	 pales, pale -> true
+	 pale, bale -> true
+	 pale, bake -> false
+	 */
+	bool oneEditAway ( const string & str1, const string & str2 ) {
+		bool editFound = false;
+		
+		if ((int)(str1.size() - str2.size()) > 1 || (int)(str2.size() - str1.size()) > 1)
+			return false;
+		
+		if (str1.size() == str2.size()) {			
+			for (int i = 0; i < str1.size(); i++) {
+				if (str1[i] != str2[i]) {
+					if (!editFound)
+						editFound = true;
+					else
+						return false;
+				}
+			}
+			return true;
+		} else if (str1.size() < str2.size()) {
+			for (int i = 0, j = 0; i < str1.size();) {
+				if (str1[i] != str2[j]) {
+					if (!editFound) {
+						j++;
+						editFound = true;
+						continue;
+					} else
+						return false;
+				}
+				i++; j++;
+			}
+			return true;
+		} else {
+			for (int i = 0, j = 0; j < str2.size();) {
+				if (str1[i] != str2[j]) {
+					if (!editFound) {
+						i++;
+						editFound = true;
+						continue;
+					} else
+						return false;
+				}
+				i++; j++;
+			}
+			return true;
+		}
+	}
+	
+	void oneEditAwayTest () {
+		vector<string> strs = {"pale", "ple", "pales", "bale", "bake"};
+		
+		cout << strs[0] << " and " << strs[1] << " are one edit away: ";
+		oneEditAway (strs[0], strs[1]) ? cout << "yes" << endl : cout << "no" << endl;
+		
+		cout << strs[0] << " and " << strs[2] << " are one edit away: ";
+		oneEditAway (strs[0], strs[2]) ? cout << "yes" << endl : cout << "no" << endl;
+		
+		cout << strs[0] << " and " << strs[3] << " are one edit away: ";
+		oneEditAway (strs[0], strs[3]) ? cout << "yes" << endl : cout << "no" << endl;
+		
+		cout << strs[0] << " and " << strs[4] << " are one edit away: ";
+		oneEditAway (strs[0], strs[4]) ? cout << "yes" << endl : cout << "no" << endl;
 	}
 };
 
